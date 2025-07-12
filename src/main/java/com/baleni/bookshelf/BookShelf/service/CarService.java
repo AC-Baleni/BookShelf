@@ -39,4 +39,7 @@ public class CarService {
         return carRepository.findByBrand(brand);
     }
 
+    public void deleteCar(String carId) {
+        carRepository.deleteById(carId);
+    }
 }
