@@ -12,6 +12,9 @@ LABEL authors="School EC"
 COPY mvnw .
 COPY .mvn .mvn
 
+# Make the Maven wrapper script executable
+RUN chmod +x mvnw
+
 # Copy the pom.xml file to download dependencies first
 # This leverages Docker's layer caching: dependencies are only re-downloaded if pom.xml changes
 COPY pom.xml .
