@@ -1,6 +1,6 @@
 # --- Stage 1: Build the application ---
-# Use a Java 17 JDK image as the base for building
-FROM openjdk:17-jdk-slim AS builder
+# Use a Java 24 JDK slim image for building
+FROM openjdk:24-ea-jdk-slim AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -29,8 +29,9 @@ COPY src src
 RUN ./mvnw package -DskipTests
 
 # --- Stage 2: Create the final lightweight runtime image ---
-# Use a smaller JRE image for the final application to reduce image size
-FROM openjdk:17-jre-slim
+# Use the same Java 24 JDK slim image for the final application to reduce image size,
+# as a specific JRE-slim for EA 24 might not be readily available.
+FROM openjdk:24-ea-jdk-slim
 
 # Set the working directory
 WORKDIR /app
@@ -44,6 +45,4 @@ EXPOSE 8080
 
 # Define the command to run the application when the container starts
 # For a Spring Boot JAR, we execute the JAR.
-# The default IntelliJ ENTRYPOINT ["top", "-b"] is for a generic Ubuntu container,
-# not for running a Java application.
 ENTRYPOINT ["java", "-jar", "app.jar"]
