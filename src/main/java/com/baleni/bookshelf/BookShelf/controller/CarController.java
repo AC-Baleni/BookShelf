@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cars") // Base path for all car-related endpoints
+@RequestMapping("/api/cars") // Base path for all car-related endpoints
 public class CarController {
 
     @Autowired
